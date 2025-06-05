@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rodrigo Chávez Portafolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
+
+        :root {
+            --primary: #000000;
+            --secondary: #ffffff;
+            --accent: #d4af37;
+            --accent-dark: #b8860b;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary);
+            color: var(--secondary);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .title-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Navigation Styles */
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Portfolio Item Styles */
+        .portfolio-item {
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .portfolio-item img {
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-caption {
+            transform: translateY(0);
+        }
+
+        /* Active filter button */
+        .category-btn.active {
+            background-color: var(--accent);
+            color: var(--primary);
+        }
+
+        /* Modal styles */
+        #videoModal {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Asegura que el video sea responsive */
+        .aspect-w-16 {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body class="antialiased bg-black text-gray-200">
+<!-- Navigation -->
+<nav class="fixed w-full z-50 bg-black bg-opacity-90 backdrop-blur-sm border-b border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+            <div class="flex-shrink-0 flex items-center">
+                <span class="text-xl title-font text-accent">Rodrigo Chávez</span>
+            </div>
+            <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-8">
+                    <a href="index.html" class="nav-link text-white hover:text-accent px-3 py-2 text-sm font-medium">HOME</a>
+                    <a href="#about" class="nav-link text-white hover:text-accent px-3 py-2 text-sm font-medium">ABOUT</a>
+                    <a href="#portfolio" class="nav-link text-white hover:text-accent px-3 py-2 text-sm font-medium">PORTFOLIO</a>
+                    <a href="#services" class="nav-link text-white hover:text-accent px-3 py-2 text-sm font-medium">SERVICES</a>
+                    <a href="#contact" class="nav-link text-white hover:text-accent px-3 py-2 text-sm font-medium">CONTACT</a>
+                </div>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-95">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="#home" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">HOME</a>
+            <a href="#about" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">ABOUT</a>
+            <a href="#portfolio" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">PORTFOLIO</a>
+            <a href="#services" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">SERVICES</a>
+            <a href="#contact" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">CONTACT</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative h-96 flex items-center justify-center bg-gradient-to-r from-black to-gray-900 overflow-hidden pt-16">
+    <div class="absolute inset-0 z-0">
+        <video autoplay muted loop class="w-full h-full object-cover opacity-30">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-filmmaker-filming-a-documentary-in-a-market-39700-large.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="relative z-10 text-center px-4">
+        <h2 class="text-4xl md:text-6xl font-bold mb-4 tracking-wider">PORTFOLIO</h2>
+        <p class="text-xl md:text-2xl max-w-2xl mx-auto">Showcasing my journey through the lens</p>
+    </div>
+</section>
+
+<!-- Portfolio Filter -->
+<section class="py-8 px-4 md:px-12 sticky top-16 bg-black bg-opacity-90 z-20 border-b border-gray-800">
+    <div class="container mx-auto">
+        <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+            <button class="category-btn active px-4 py-2 rounded-full bg-yellow-600 text-white transition" data-category="all">All Works</button>
+            <button class="category-btn px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 transition" data-category="video">Videos</button>
+            <button class="category-btn px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 transition" data-category="set">Set Photography</button>
+            <button class="category-btn px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 transition" data-category="street">Street Photography</button>
+            <button class="category-btn px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 transition" data-category="photoshoot">Photoshoots</button>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Grid -->
+<main class="py-12 px-4 md:px-12" id="portfolio">
+    <div class="container mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+            <!-- Portfolio items will be dynamically inserted here -->
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-900 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h2 class="text-3xl font-bold title-font text-accent mb-6">RODRIGO CHÁVEZ</h2>
+            <p class="text-gray-300 max-w-2xl mx-auto mb-8">Crafting visual narratives that captivate and inspire through the lens of cinematic excellence.</p>
+
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="text-gray-300 hover:text-accent text-xl">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-gray-300 hover:text-accent text-xl">
+                    <i class="fab fa-vimeo-v"></i>
+                </a>
+                <a href="#" class="text-gray-300 hover:text-accent text-xl">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="text-gray-300 hover:text-accent text-xl">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-gray-400">&copy; 2025 Digital Mango - All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Modal para videos (REEMPLAZA EL EXISTENTE CON ESTE) -->
+<div id="videoModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-90 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="relative w-full max-w-4xl mx-4">
+        <button id="closeModalBtn" class="absolute -top-12 right-0 text-white hover:text-yellow-500 transition text-3xl">
+            ✕
+        </button>
+        <div id="videoContainer" class="aspect-w-16 aspect-h-9 bg-black">
+            <!-- El contenido se insertará dinámicamente aquí -->
+        </div>
+    </div>
+</div>
+
+<script>
+    // Portfolio data
+    const portfolioItems = [
+        {
+            id: 1,
+            title: "Midnight Train",
+            category: "video",
+            type: "video",
+            thumbnail: "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1159&q=80",
+            media: "img/portfolio/videos/spot_television/RompicheVR.mp4", // Ejemplo con Vimeo
+            description: "A suspense thriller about a mysterious encounter on a late-night train."
+        },
+        {
+            id: 2,
+            title: "foto_2",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7401348.jpg",
+            media: "img/portfolio/photos/set_photography/A7401348.jpg",
+            description: "Street photography exploring loneliness in crowded cities."
+        },
+        {
+            id: 3,
+            title: "Escena Urbana 1",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7401480.jpg",
+            media: "img/portfolio/photos/set_photography/A7401480.jpg",
+            description: "Composición de luz y sombras en la ciudad."
+        },
+        {
+            id: 4,
+            title: "Escena Urbana 2",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7401492.jpg",
+            media: "img/portfolio/photos/set_photography/A7401492.jpg",
+            description: "Momento espontáneo en el centro histórico."
+        },
+        {
+            id: 5,
+            title: "Escena Urbana 3",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7401496.jpg",
+            media: "img/portfolio/photos/set_photography/A7401496.jpg",
+            description: "Retrato callejero en blanco y negro."
+        },
+        {
+            id: 6,
+            title: "Escena Urbana 4",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7401596.jpg",
+            media: "img/portfolio/photos/set_photography/A7401596.jpg",
+            description: "Arquitectura y personas en contraste."
+        },
+        {
+            id: 7,
+            title: "Action Sequence",
+            category: "video",
+            type: "video",
+            thumbnail: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1025&q=80",
+            media: "https://assets.mixkit.co/videos/preview/mixkit-woman-filming-with-a-camera-in-a-train-39701-large.mp4",
+            description: "Choreographed fight scene from our action short."
+        },
+        {
+            id: 8,
+            title: "Silent Echoes",
+            category: "video",
+            type: "video",
+            thumbnail: "https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            media: "https://assets.mixkit.co/videos/preview/mixkit-woman-filming-with-a-camera-in-a-train-39701-large.mp4",
+            description: "Experimental short film about memory and loss."
+        },
+        {
+            id: 9,
+            title: "Calle Vibrante",
+            category: "street", // Asegúrate que coincida con tu filtro
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/000086850032.jpg",
+            media: "img/portfolio/photos/street_photos/000086850032.jpg",
+            description: "Color y movimiento en la vida urbana."
+        },
+        {
+            id: 10,
+            title: "Reflejos Urbanos",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/A7400840.jpg",
+            media: "img/portfolio/photos/street_photos/A7400840.jpg",
+            description: "Juego de espejos en la arquitectura moderna."
+        },
+        {
+            id: 11,
+            title: "Silueta Citadina",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/A7400850.jpg",
+            media: "img/portfolio/photos/street_photos/A7400850.jpg",
+            description: "Figura solitaria contra el atardecer."
+        },
+        {
+            id: 12,
+            title: "Mirada Fugaz",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/IMG_2103.jpeg",
+            media: "img/portfolio/photos/street_photos/IMG_2103.jpeg",
+            description: "Retrato espontáneo en el metro."
+        },
+        {
+            id: 13,
+            title: "Convergencia",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/IMG_002513.jpeg",
+            media: "img/portfolio/photos/street_photos/IMG_002513.jpeg",
+            description: "Líneas y personas en perspectiva."
+        },
+        {
+            id: 14,
+            title: "Escena Diagonal",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/IMG_002514.jpeg",
+            media: "img/portfolio/photos/street_photos/IMG_002514.jpeg",
+            description: "Composición geométrica en la calle."
+        },
+        {
+            id: 15,
+            title: "Sombras Largas",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/IMG_002515.jpeg",
+            media: "img/portfolio/photos/street_photos/IMG_002515.jpeg",
+            description: "Contraste de luz al mediodía."
+        },
+        {
+            id: 16,
+            title: "Ritmo Urbano",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/IMG_155102.jpeg",
+            media: "img/portfolio/photos/street_photos/IMG_155102.jpeg",
+            description: "Movimiento y texturas en la ciudad."
+        },
+        {
+            id: 17,
+            title: "Espera",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/IMG_155103.jpeg",
+            media: "img/portfolio/photos/street_photos/IMG_155103.jpeg",
+            description: "Momento de pausa en el bullicio."
+        },
+        {
+            id: 18,
+            title: "Retrato Editorial 1",
+            category: "photoshoot", // Asegúrate que coincida con tu filtro
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7405366.jpg",
+            media: "img/portfolio/photos/photoshoots/A7405366.jpg",
+            description: "Luz natural y expresividad en estudio."
+        },
+        {
+            id: 19,
+            title: "Moda Urbana",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7405490.jpg",
+            media: "img/portfolio/photos/photoshoots/A7405490.jpg",
+            description: "Estilo contemporáneo en locación industrial."
+        },
+        {
+            id: 20,
+            title: "Perfil Dramático",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7405493.jpg",
+            media: "img/portfolio/photos/photoshoots/A7405493.jpg",
+            description: "Claroscuro para un look cinematográfico."
+        },
+        {
+            id: 21,
+            title: "Belleza Natural",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7405709.jpg",
+            media: "img/portfolio/photos/photoshoots/A7405709.jpg",
+            description: "Retrato minimalista con fondos neutros."
+        },
+        {
+            id: 22,
+            title: "Estilo Editorial",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7405977.jpg",
+            media: "img/portfolio/photos/photoshoots/A7405977.jpg",
+            description: "Composición con paleta de colores cálidos."
+        },
+        {
+            id: 23,
+            title: "Mirada Profunda",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7406166.jpg",
+            media: "img/portfolio/photos/photoshoots/A7406166.jpg",
+            description: "Encuadre cerrado para intensidad emocional."
+        },
+        {
+            id: 24,
+            title: "Movimiento Elegante",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7406873.jpg",
+            media: "img/portfolio/photos/photoshoots/A7406873.jpg",
+            description: "Captura de flujo y texturas en vestuario."
+        },
+        {
+            id: 25,
+            title: "Contraste de Estilos",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7406943.jpg",
+            media: "img/portfolio/photos/photoshoots/A7406943.jpg",
+            description: "Fusión de moda clásica y vanguardista."
+        },
+        {
+            id: 26,
+            title: "Silueta Destacada",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7406969.jpg",
+            media: "img/portfolio/photos/photoshoots/A7406969.jpg",
+            description: "Juego con contraluces y formas."
+        },
+        {
+            id: 27,
+            title: "Color Vibrante",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7408433.jpg",
+            media: "img/portfolio/photos/photoshoots/A7408433.jpg",
+            description: "Paleta saturada para impacto visual."
+        },
+        {
+            id: 28,
+            title: "Equilibrio y Composición",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7408454.jpg",
+            media: "img/portfolio/photos/photoshoots/A7408454.jpg",
+            description: "Geometría y armonía en el encuadre."
+        }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elementos del DOM
+        const portfolioGrid = document.getElementById('portfolio-grid');
+        const filterButtons = document.querySelectorAll('.category-btn');
+        const videoModal = document.getElementById('videoModal');
+        const videoContainer = document.getElementById('videoContainer');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        // Renderizar items
+        function renderPortfolioItems(category) {
+            portfolioGrid.innerHTML = '';
+            const items = category === 'all' ? portfolioItems : portfolioItems.filter(item => item.category === category);
+
+            items.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'portfolio-item fade-in rounded-lg overflow-hidden shadow-lg relative';
+
+                if (item.type === 'video') {
+                    itemElement.innerHTML = `
+                        <div class="relative h-64 w-full overflow-hidden group cursor-pointer">
+                            <img src="${item.thumbnail}" alt="${item.title}"
+                                 class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                 data-video-url="${item.media}">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-16 h-16 bg-accent bg-opacity-80 rounded-full flex items-center justify-center transform transition-all group-hover:scale-110">
+                                    <i class="fas fa-play text-white text-2xl"></i>
+                                </div>
+                            </div>
+                            <div class="portfolio-caption">
+                                <h3 class="text-lg font-bold">${item.title}</h3>
+                                <p class="text-sm text-gray-300">${item.description}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    itemElement.innerHTML = `
+                        <div class="relative h-64 w-full overflow-hidden">
+                            <img src="${item.thumbnail}" alt="${item.title}" class="w-full h-full object-cover">
+                            <div class="portfolio-caption">
+                                <h3 class="text-lg font-bold">${item.title}</h3>
+                                <p class="text-sm text-gray-300">${item.description}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                portfolioGrid.appendChild(itemElement);
+            });
+
+            // Eventos para videos
+            document.querySelectorAll('[data-video-url]').forEach(thumb => {
+                thumb.addEventListener('click', function() {
+                    const videoUrl = this.getAttribute('data-video-url');
+
+                    // Limpiar contenedor primero
+                    videoContainer.innerHTML = '';
+
+                    // Determinar si es video local o enlace externo
+                    if (videoUrl.match(/\.(mp4|mov|webm)$/i)) {
+                        videoContainer.innerHTML = `
+                            <video controls autoplay class="w-full h-full object-contain">
+                                <source src="${videoUrl}" type="video/mp4">
+                                Tu navegador no soporta videos HTML5.
+                            </video>
+                        `;
+                    } else {
+                        videoContainer.innerHTML = `
+                            <iframe src="${videoUrl}" class="w-full h-full"
+                                    frameborder="0" allowfullscreen
+                                    allow="autoplay; encrypted-media">
+                            </iframe>
+                        `;
+                    }
+
+                    videoModal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+        }
+
+        // Filtros
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterButtons.forEach(b => b.classList.remove('active', 'bg-yellow-600'));
+                this.classList.add('active', 'bg-yellow-600');
+                renderPortfolioItems(this.dataset.category);
+            });
+        });
+
+        // Cerrar modal
+        closeModalBtn.addEventListener('click', closeVideoModal);
+        videoModal.addEventListener('click', function(e) {
+            if (e.target === videoModal) closeVideoModal();
+        });
+
+        function closeVideoModal() {
+            videoModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            const video = videoContainer.querySelector('video');
+            if (video) video.pause();
+        }
+
+        // Menú móvil
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Inicializar
+        renderPortfolioItems('all');
+    });
+
+    // Detectar categoría desde la URL
+const params = new URLSearchParams(window.location.search);
+const categoryFromURL = params.get('category');
+
+if (categoryFromURL) {
+  const matchingBtn = document.querySelector(`.category-btn[data-category="${categoryFromURL}"]`);
+  if (matchingBtn) {
+    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+    matchingBtn.classList.add('active');
+    renderPortfolioItems(categoryFromURL);
+  }
+}
+
+
+    // Al cargar con hash, filtra automáticamente
+const hash = window.location.hash.replace('#', '');
+if (hash) {
+  const matchingBtn = document.querySelector(`.category-btn[data-category="${hash}"]`);
+  if (matchingBtn) {
+    matchingBtn.click(); // Simula clic en el botón correspondiente
+    window.scrollTo({ top: document.getElementById('portfolio').offsetTop - 80, behavior: 'smooth' });
+  }
+}
+
+</script>
+</body>
+</html>
