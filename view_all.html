@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rodrigo Chávez Portafolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
+
+        :root {
+            --primary: #000000;
+            --secondary: #ffffff;
+            --accent: #d4af37;
+            --accent-dark: #b8860b;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary);
+            color: var(--secondary);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .title-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Navigation Styles */
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Portfolio Item Styles */
+        .portfolio-item {
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .portfolio-item img {
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-caption {
+            transform: translateY(0);
+        }
+
+        /* Active filter button */
+        .category-btn.active {
+            background-color: var(--accent);
+            color: var(--primary);
+        }
+
+        /* Modal styles */
+        #videoModal {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Asegura que el video sea responsive */
+        .aspect-w-16 {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body class="antialiased bg-black text-gray-200">
+<!-- Navigation -->
+<nav class="fixed w-full z-50 bg-black bg-opacity-90 backdrop-blur-sm border-b border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+            <div class="flex-shrink-0 flex items-center">
+                <span class="text-xl title-font text-accent">RUIDITO</span>
+            </div>
+            <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-8">
+                    <a href="index.html" class="nav-link text-white hover:text-accent px-3 py-2 text-sm font-medium">HOME</a>
+                    <a href="index.html" class="nav-link text-white hover:text-accent px-3 py-2 text-sm font-medium">ABOUT</a>
+                    <!-- Dropdown for Portfolio -->
+                    <div class="relative">
+                        <button id="portfolio-toggle" class="nav-link text-white hover:text-accent px-3 py-2 text-sm font-medium focus:outline-none">
+                            PORTFOLIO <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div id="portfolio-menu"
+                             class="absolute left-0 mt-2 bg-black bg-opacity-90 rounded shadow-lg min-w-[200px] z-50
+              transition-all duration-300 transform scale-95 opacity-0 pointer-events-none">
+                            <a href="view_all.html#video" class="nav-link block px-4 py-2 text-white hover:text-accent">Videos</a>
+                            <a href="view_all.html#set" class="nav-link block px-4 py-2 text-white hover:text-accent">Set Photography</a>
+                            <a href="view_all.html#street" class="nav-link block px-4 py-2 text-white hover:text-accent">Street Photography</a>
+                            <a href="view_all.html#photoshoot" class="nav-link block px-4 py-2 text-white hover:text-accent">Photoshoots</a>
+                        </div>
+                    </div>
+                    <a href="index.html#services" class="nav-link text-white hover:text-accent px-3 py-2 text-sm font-medium">SERVICES</a>
+                    <a href="index.html#contact" class="nav-link text-white hover:text-accent px-3 py-2 text-sm font-medium">CONTACT</a>
+                </div>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-95">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="#home" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">HOME</a>
+            <a href="#about" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">ABOUT</a>
+            <a href="#portfolio" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">PORTFOLIO</a>
+            <a href="#services" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">SERVICES</a>
+            <a href="#contact" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">CONTACT</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative h-96 flex items-center justify-center bg-gradient-to-r from-black to-gray-900 overflow-hidden pt-16">
+    <div class="absolute inset-0 z-0">
+        <video autoplay muted loop class="w-full h-full object-cover opacity-30">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-filmmaker-filming-a-documentary-in-a-market-39700-large.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="relative z-10 text-center px-4">
+        <h2 class="text-4xl md:text-6xl font-bold mb-4 tracking-wider">PORTFOLIO</h2>
+        <p class="text-xl md:text-2xl max-w-2xl mx-auto">Showcasing my journey through the lens</p>
+    </div>
+</section>
+
+<!-- Portfolio Filter -->
+<section class="py-8 px-4 md:px-12 sticky top-16 bg-black bg-opacity-90 z-20 border-b border-gray-800">
+    <div class="container mx-auto">
+        <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+            <button class="category-btn active px-4 py-2 rounded-full bg-yellow-600 text-white transition" data-category="all">All Works</button>
+            <button class="category-btn px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 transition" data-category="video">Videos</button>
+            <button class="category-btn px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 transition" data-category="set">Set Photography</button>
+            <button class="category-btn px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 transition" data-category="street">Street Photography</button>
+            <button class="category-btn px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 transition" data-category="photoshoot">Photoshoots</button>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Grid -->
+<main class="py-12 px-4 md:px-12" id="portfolio">
+    <div class="container mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+            <!-- Portfolio items will be dynamically inserted here -->
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-black-900 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h2 class="text-3xl font-bold title-font text-accent mb-6">RODRIGO CHÁVEZ</h2>
+            <p class="text-gray-300 max-w-2xl mx-auto mb-8">Crafting visual narratives that captivate and inspire through the lens of cinematic excellence.</p>
+
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="https://www.instagram.com/rodrigo_chp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-gray-300 hover:text-accent text-xl">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://vimeo.com/user241829550" class="text-gray-300 hover:text-accent text-xl">
+                    <i class="fab fa-vimeo-v"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/rodrigo-ch%C3%A1vez-406229232?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" class="text-gray-300 hover:text-accent text-xl">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+<!--                <a href="#" class="text-gray-300 hover:text-accent text-xl">-->
+<!--                    <i class="fab fa-youtube"></i>-->
+<!--                </a>-->
+            </div>
+
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-gray-400">&copy; 2025 DigitalMango - All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+    // Portfolio data
+    const portfolioItems = [
+        {
+            id: 1.1,
+            title: "Behind The Scenes",
+            category: "video",
+            type: "video",
+            thumbnail: "img/portfolio/videos/thumbnails/bts.png",
+            media: "https://vimeo.com/1091342331", // Reemplaza con tu URL de YouTube
+            description: ""
+        },
+        {
+            id: 1.2,
+            title: "Rompiche",
+            category: "video",
+            type: "video",
+            thumbnail: "img/portfolio/videos/thumbnails/rompiche.png",
+            media: "https://vimeo.com/1091343899", // Reemplaza con tu URL de YouTube
+            description: ""
+        },
+        {
+            id: 1.3,
+            title: "Pas Grand Chose",
+            category: "video",
+            type: "video",
+            thumbnail: "img/portfolio/videos/thumbnails/pgc.png",
+            media: "https://youtu.be/-_SGQi2hxFo?si=8i6menwaUH8awN2g", // Reemplaza con tu URL de YouTube
+            description: ""
+        },
+        {
+            id: 1.4,
+            title: "BINGO!",
+            category: "video",
+            type: "video",
+            thumbnail: "img/portfolio/videos/thumbnails/bingo.png",
+            media: "https://www.youtube.com/watch?v=yqgnv9elzJY", // Reemplaza con tu URL de YouTube
+            description: ""
+        },
+        {
+            id: 1.5,
+            title: "Master Of Change",
+            category: "video",
+            type: "video",
+            thumbnail: "img/portfolio/videos/thumbnails/MOC.png",
+            media: "https://drive.google.com/file/d/1Ly-FRfSozaPm7sspcwlTVt4bGHIfM4ov/view?usp=sharing", // Reemplaza con tu URL de YouTube
+            description: ""
+        },
+        {
+            id: 1.6,
+            title: "Carro Seguro",
+            category: "video",
+            type: "video",
+            thumbnail: "img/portfolio/videos/thumbnails/carroseguro.png",
+            media: "https://www.youtube.com/watch?v=hijnjh9f9NI", // Reemplaza con tu URL de YouTube
+            description: ""
+        },
+        {
+            id: 1.7,
+            title: "Showreel",
+            category: "video",
+            type: "video",
+            thumbnail: "img/portfolio/videos/thumbnails/show.png",
+            media: "https://vimeo.com/1091347933", // Reemplaza con tu URL de YouTube
+            description: ""
+        },
+            {
+                id: 2.1,
+                title: "A7402888_compressed",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7402888_compressed.jpg",
+                media: "img/portfolio/photos/set_photography/A7402888_compressed.jpg",
+                description: "Escena nocturna capturando luces y sombras urbanas."
+            },
+            {
+                id: 2.2,
+                title: "A7402950_compressed",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7402950_compressed.jpg",
+                media: "img/portfolio/photos/set_photography/A7402950_compressed.jpg",
+                description: "Perspectiva única de una calle con reflexiones en el agua."
+            },
+            {
+                id: 2.3,
+                title: "A7403022_compressed",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7403022_compressed.jpg",
+                media: "img/portfolio/photos/set_photography/A7403022_compressed.jpg",
+                description: "Captura de un momento cotidiano en la ciudad."
+            },
+            {
+                id: 2.4,
+                title: "A7403041_compressed",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7403041_compressed.jpg",
+                media: "img/portfolio/photos/set_photography/A7403041_compressed.jpg",
+                description: "Detalles de texturas urbanas en una composición minimalista."
+            },
+            {
+                id: 2.5,
+                title: "A7403088_compressed",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7403088_compressed.jpg",
+                media: "img/portfolio/photos/set_photography/A7403088_compressed.jpg",
+                description: "Exploración de formas y líneas en la arquitectura urbana."
+            },
+            {
+                id: 2.6,
+                title: "A7403109_compressed",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7403109_compressed.jpg",
+                media: "img/portfolio/photos/set_photography/A7403109_compressed.jpg",
+                description: "Momento capturado en una plaza pública con personas transitando."
+            },
+            {
+                id: 2.7,
+                title: "A7403171_compressed",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7403171_compressed.jpg",
+                media: "img/portfolio/photos/set_photography/A7403171_compressed.jpg",
+                description: "Reflexiones en una ventana mostrando la vida urbana."
+            },
+            {
+                id: 2.8,
+                title: "A7403196_compressed",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7403196_compressed.jpg",
+                media: "img/portfolio/photos/set_photography/A7403196_compressed.jpg",
+                description: "Composición dinámica de una calle con movimiento."
+            },
+            {
+                id: 2.9,
+                title: "A7403418_compressed",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7403418_compressed.jpg",
+                media: "img/portfolio/photos/set_photography/A7403418_compressed.jpg",
+                description: "Paisaje urbano con elementos naturales contrastando con la arquitectura."
+            },
+            // {
+            //     id: 2.10,
+            //     title: "A7402106",
+            //     category: "set",
+            //     type: "image",
+            //     thumbnail: "img/portfolio/photos/set_photography/A7402106.jpg",
+            //     media: "img/portfolio/photos/set_photography/A7402106.jpg",
+            //     description: "Composición urbana con detalles arquitectónicos."
+            // },
+            {
+                id: 2.11,
+                title: "A7401216",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7401216.jpg",
+                media: "img/portfolio/photos/set_photography/A7401216.jpg",
+                description: "Escena nocturna capturando luces y sombras urbanas."
+            },
+            {
+                id: 2.12,
+                title: "A7401403",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7401403.jpg",
+                media: "img/portfolio/photos/set_photography/A7401403.jpg",
+                description: "Perspectiva única de una calle con reflexiones en el agua."
+            },
+            {
+                id: 2.13,
+                title: "A7401483",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7401483.jpg",
+                media: "img/portfolio/photos/set_photography/A7401483.jpg",
+                description: "Captura de un momento cotidiano en la ciudad."
+            },
+            {
+                id: 2.14,
+                title: "A7401494",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7401494.jpg",
+                media: "img/portfolio/photos/set_photography/A7401494.jpg",
+                description: "Detalles de texturas urbanas en una composición minimalista."
+            },
+            {
+                id: 2.15,
+                title: "A7401501",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7401501.jpg",
+                media: "img/portfolio/photos/set_photography/A7401501.jpg",
+                description: "Exploración de formas y líneas en la arquitectura urbana."
+            },
+            {
+                id: 2.16,
+                title: "A7401517",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7401517.jpg",
+                media: "img/portfolio/photos/set_photography/A7401517.jpg",
+                description: "Momento capturado en una plaza pública con personas transitando."
+            },
+            {
+                id: 2.17,
+                title: "A7401596",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7401596.jpg",
+                media: "img/portfolio/photos/set_photography/A7401596.jpg",
+                description: "Reflexiones en una ventana mostrando la vida urbana."
+            },
+            {
+                id: 2.18,
+                title: "A7407062",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7407062.jpg",
+                media: "img/portfolio/photos/set_photography/A7407062.jpg",
+                description: "Composición urbana con detalles arquitectónicos."
+            },
+            {
+                id: 2.19,
+                title: "A7407088",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7407088.jpg",
+                media: "img/portfolio/photos/set_photography/A7407088.jpg",
+                description: "Escena nocturna capturando luces y sombras urbanas."
+            },
+            {
+                id: 2.20,
+                title: "A7407157",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7407157.jpg",
+                media: "img/portfolio/photos/set_photography/A7407157.jpg",
+                description: "Perspectiva única de una calle con reflexiones en el agua."
+            },
+            {
+                id: 2.21,
+                title: "A7407285",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7407285.jpg",
+                media: "img/portfolio/photos/set_photography/A7407285.jpg",
+                description: "Captura de un momento cotidiano en la ciudad."
+            },
+            {
+                id: 2.22,
+                title: "A7407290",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7407290.jpg",
+                media: "img/portfolio/photos/set_photography/A7407290.jpg",
+                description: "Detalles de texturas urbanas en una composición minimalista."
+            },
+            {
+                id: 2.23,
+                title: "A7407337",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7407337.jpg",
+                media: "img/portfolio/photos/set_photography/A7407337.jpg",
+                description: "Exploración de formas y líneas en la arquitectura urbana."
+            },
+            {
+                id: 2.24,
+                title: "A7407358",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7407358.jpg",
+                media: "img/portfolio/photos/set_photography/A7407358.jpg",
+                description: "Momento capturado en una plaza pública con personas transitando."
+            },
+            {
+                id: 2.25,
+                title: "A7407373",
+                category: "set",
+                type: "image",
+                thumbnail: "img/portfolio/photos/set_photography/A7407373.jpg",
+                media: "img/portfolio/photos/set_photography/A7407373.jpg",
+                description: "Reflexiones en una ventana mostrando la vida urbana."
+            },
+        {
+            id: 2.26,
+            title: "A7404455_compressed",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7404455_compressed.jpg",
+            media: "img/portfolio/photos/set_photography/A7404455_compressed.jpg",
+            description: "Composición urbana con detalles arquitectónicos."
+        },
+        {
+            id: 2.27,
+            title: "A7404670_compressed",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7404670_compressed.jpg",
+            media: "img/portfolio/photos/set_photography/A7404670_compressed.jpg",
+            description: "Escena nocturna capturando luces y sombras urbanas."
+        },
+        {
+            id: 2.28,
+            title: "A7404903_compressed",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7404903_compressed.jpg",
+            media: "img/portfolio/photos/set_photography/A7404903_compressed.jpg",
+            description: "Perspectiva única de una calle con reflexiones en el agua."
+        },
+        {
+            id: 2.29,
+            title: "A7405066_compressed",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7405066_compressed.jpg",
+            media: "img/portfolio/photos/set_photography/A7405066_compressed.jpg",
+            description: "Captura de un momento cotidiano en la ciudad."
+        },
+        {
+            id: 2.30,
+            title: "A7405112_compressed",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7405112_compressed.jpg",
+            media: "img/portfolio/photos/set_photography/A7405112_compressed.jpg",
+            description: "Detalles de texturas urbanas en una composición minimalista."
+        },
+        {
+            id: 2.31,
+            title: "A7405167_compressed",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7405167_compressed.jpg",
+            media: "img/portfolio/photos/set_photography/A7405167_compressed.jpg",
+            description: "Exploración de formas y líneas en la arquitectura urbana."
+        },
+        {
+            id: 2.32,
+            title: "A7405196_compressed",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7405196_compressed.jpg",
+            media: "img/portfolio/photos/set_photography/A7405196_compressed.jpg",
+            description: "Momento capturado en una plaza pública con personas transitando."
+        },
+        {
+            id: 2.33,
+            title: "A7405249_compressed",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7405249_compressed.jpg",
+            media: "img/portfolio/photos/set_photography/A7405249_compressed.jpg",
+            description: "Reflexiones en una ventana mostrando la vida urbana."
+        },
+        {
+            id: 2.34,
+            title: "A7405256_compressed",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7405256_compressed.jpg",
+            media: "img/portfolio/photos/set_photography/A7405256_compressed.jpg",
+            description: "Composición dinámica de una calle con movimiento."
+        },
+        {
+            id: 2.35,
+            title: "A7405271_compressed",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7405271_compressed.jpg",
+            media: "img/portfolio/photos/set_photography/A7405271_compressed.jpg",
+            description: "Paisaje urbano con elementos naturales contrastando con la arquitectura."
+        },
+        {
+            id: 2.45,
+            title: "A7407978",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7407978.jpg",
+            media: "img/portfolio/photos/set_photography/A7407978.jpg",
+            description: "Composición urbana con detalles arquitectónicos."
+        },
+        {
+            id: 2.46,
+            title: "A7407995",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7407995.jpg",
+            media: "img/portfolio/photos/set_photography/A7407995.jpg",
+            description: "Escena nocturna capturando luces y sombras urbanas."
+        },
+        {
+            id: 2.47,
+            title: "A7408243",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7408243.jpg",
+            media: "img/portfolio/photos/set_photography/A7408243.jpg",
+            description: "Perspectiva única de una calle con reflexiones en el agua."
+        },
+        {
+            id: 2.48,
+            title: "A7408282",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7408282.jpg",
+            media: "img/portfolio/photos/set_photography/A7408282.jpg",
+            description: "Captura de un momento cotidiano en la ciudad."
+        },
+        {
+            id: 2.49,
+            title: "A7408346",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7408346.jpg",
+            media: "img/portfolio/photos/set_photography/A7408346.jpg",
+            description: "Detalles de texturas urbanas en una composición minimalista."
+        },
+        {
+            id: 2.50,
+            title: "A7408415",
+            category: "set",
+            type: "image",
+            thumbnail: "img/portfolio/photos/set_photography/A7408415.jpg",
+            media: "img/portfolio/photos/set_photography/A7408415.jpg",
+            description: "Exploración de formas y líneas en la arquitectura urbana."
+        },
+        {
+            id: 9,
+            title: "Calle Vibrante",
+            category: "street", // Asegúrate que coincida con tu filtro
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/000086850032.jpg",
+            media: "img/portfolio/photos/street_photos/000086850032.jpg",
+            description: "Color y movimiento en la vida urbana."
+        },
+        {
+            id: 10,
+            title: "Reflejos Urbanos",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/A7400840.jpg",
+            media: "img/portfolio/photos/street_photos/A7400840.jpg",
+            description: "Juego de espejos en la arquitectura moderna."
+        },
+        {
+            id: 11,
+            title: "Silueta Citadina",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/A7400850.jpg",
+            media: "img/portfolio/photos/street_photos/A7400850.jpg",
+            description: "Figura solitaria contra el atardecer."
+        },
+        {
+            id: 12,
+            title: "Mirada Fugaz",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/IMG_2103.jpeg",
+            media: "img/portfolio/photos/street_photos/IMG_2103.jpeg",
+            description: "Retrato espontáneo en el metro."
+        },
+        {
+            id: 13,
+            title: "Convergencia",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/IMG_002513.jpeg",
+            media: "img/portfolio/photos/street_photos/IMG_002513.jpeg",
+            description: "Líneas y personas en perspectiva."
+        },
+        {
+            id: 14,
+            title: "Escena Diagonal",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/IMG_002514.jpeg",
+            media: "img/portfolio/photos/street_photos/IMG_002514.jpeg",
+            description: "Composición geométrica en la calle."
+        },
+        {
+            id: 15,
+            title: "Sombras Largas",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/IMG_002515.jpeg",
+            media: "img/portfolio/photos/street_photos/IMG_002515.jpeg",
+            description: "Contraste de luz al mediodía."
+        },
+        {
+            id: 16,
+            title: "Ritmo Urbano",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/IMG_155102.jpeg",
+            media: "img/portfolio/photos/street_photos/IMG_155102.jpeg",
+            description: "Movimiento y texturas en la ciudad."
+        },
+        {
+            id: 17,
+            title: "Espera",
+            category: "street",
+            type: "image",
+            thumbnail: "img/portfolio/photos/street_photos/IMG_155103.jpeg",
+            media: "img/portfolio/photos/street_photos/IMG_155103.jpeg",
+            description: "Momento de pausa en el bullicio."
+        },
+        // {
+        //     id: 18,
+        //     title: "Retrato Editorial 1",
+        //     category: "photoshoot", // Asegúrate que coincida con tu filtro
+        //     type: "image",
+        //     thumbnail: "img/portfolio/photos/photoshoots/A7405366.jpg",
+        //     media: "img/portfolio/photos/photoshoots/A7405366.jpg",
+        //     description: "Luz natural y expresividad en estudio."
+        // },
+        {
+            id: 19,
+            title: "Moda Urbana",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7405490.jpg",
+            media: "img/portfolio/photos/photoshoots/A7405490.jpg",
+            description: "Estilo contemporáneo en locación industrial."
+        },
+        {
+            id: 20,
+            title: "Perfil Dramático",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7405493.jpg",
+            media: "img/portfolio/photos/photoshoots/A7405493.jpg",
+            description: "Claroscuro para un look cinematográfico."
+        },
+        // {
+        //     id: 21,
+        //     title: "Belleza Natural",
+        //     category: "photoshoot",
+        //     type: "image",
+        //     thumbnail: "img/portfolio/photos/photoshoots/A7405709.jpg",
+        //     media: "img/portfolio/photos/photoshoots/A7405709.jpg",
+        //     description: "Retrato minimalista con fondos neutros."
+        // },
+        {
+            id: 22,
+            title: "Estilo Editorial",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7405977.jpg",
+            media: "img/portfolio/photos/photoshoots/A7405977.jpg",
+            description: "Composición con paleta de colores cálidos."
+        },
+        {
+            id: 23,
+            title: "Mirada Profunda",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7406166.jpg",
+            media: "img/portfolio/photos/photoshoots/A7406166.jpg",
+            description: "Encuadre cerrado para intensidad emocional."
+        },
+        {
+            id: 24,
+            title: "Movimiento Elegante",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7406873.jpg",
+            media: "img/portfolio/photos/photoshoots/A7406873.jpg",
+            description: "Captura de flujo y texturas en vestuario."
+        },
+        {
+            id: 25,
+            title: "Contraste de Estilos",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7406943.jpg",
+            media: "img/portfolio/photos/photoshoots/A7406943.jpg",
+            description: "Fusión de moda clásica y vanguardista."
+        },
+        {
+            id: 26,
+            title: "Silueta Destacada",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7406969.jpg",
+            media: "img/portfolio/photos/photoshoots/A7406969.jpg",
+            description: "Juego con contraluces y formas."
+        },
+        {
+            id: 27,
+            title: "Color Vibrante",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7408433.jpg",
+            media: "img/portfolio/photos/photoshoots/A7408433.jpg",
+            description: "Paleta saturada para impacto visual."
+        },
+        {
+            id: 28,
+            title: "Equilibrio y Composición",
+            category: "photoshoot",
+            type: "image",
+            thumbnail: "img/portfolio/photos/photoshoots/A7408454.jpg",
+            media: "img/portfolio/photos/photoshoots/A7408454.jpg",
+            description: "Geometría y armonía en el encuadre."
+        }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const portfolioGrid = document.getElementById('portfolio-grid');
+        const filterButtons = document.querySelectorAll('.category-btn');
+
+        // Función para activar el filtro según el hash
+        function activateFilterFromHash() {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                const matchingBtn = document.querySelector(`.category-btn[data-category="${hash}"]`);
+                if (matchingBtn) {
+                    // Remover active de todos los botones
+                    document.querySelectorAll('.category-btn').forEach(btn => {
+                        btn.classList.remove('active', 'bg-yellow-600');
+                        btn.classList.add('bg-gray-800');
+                    });
+
+                    // Activar el botón correspondiente
+                    matchingBtn.classList.add('active', 'bg-yellow-600');
+                    matchingBtn.classList.remove('bg-gray-800');
+
+                    // Renderizar los items
+                    renderPortfolioItems(hash);
+
+                    // Desplazarse suavemente a la sección
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: document.getElementById('portfolio').offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                    return true; // Indica que se procesó un hash
+                }
+            }
+            return false; // No había hash válido
+        }
+
+        // Renderizar items
+        function renderPortfolioItems(category) {
+            portfolioGrid.innerHTML = '';
+            const items = category === 'all' ? portfolioItems : portfolioItems.filter(item => item.category === category);
+
+            items.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'portfolio-item fade-in rounded-lg overflow-hidden shadow-lg relative';
+
+                if (item.type === 'video') {
+                    itemElement.innerHTML = `
+                    <a href="${item.media}" target="_blank" class="block relative h-64 w-full overflow-hidden group">
+                        <img src="${item.thumbnail}" alt="${item.title}"
+                             class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-accent bg-opacity-80 rounded-full flex items-center justify-center transform transition-all group-hover:scale-110">
+                                <i class="fas fa-play text-white text-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="portfolio-caption">
+                            <h3 class="text-lg font-bold">${item.title}</h3>
+                            <p class="text-sm text-gray-300">${item.description}</p>
+                        </div>
+                    </a>
+                `;
+                } else {
+                    itemElement.innerHTML = `
+                    <div class="relative h-64 w-full overflow-hidden">
+                        <img src="${item.thumbnail}" alt="${item.title}" class="w-full h-full object-cover">
+                    </div>
+                `;
+                }
+
+                portfolioGrid.appendChild(itemElement);
+            });
+        }
+
+        // Manejar clicks en los botones de filtro
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterButtons.forEach(b => b.classList.remove('active', 'bg-yellow-600'));
+                this.classList.add('active', 'bg-yellow-600');
+                renderPortfolioItems(this.dataset.category);
+            });
+        });
+
+        // Menú móvil
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Inicialización
+        const hashProcessed = activateFilterFromHash();
+        if (!hashProcessed) {
+            // Solo mostrar 'all' si no había un hash válido
+            renderPortfolioItems('all');
+        }
+
+        // Escuchar cambios en el hash
+        window.addEventListener('hashchange', activateFilterFromHash);
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleBtn = document.getElementById('portfolio-toggle');
+        const menu = document.getElementById('portfolio-menu');
+
+        let isOpen = false;
+
+        toggleBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            isOpen = !isOpen;
+            if (isOpen) {
+                menu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                menu.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+            } else {
+                menu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+            }
+        });
+
+        // Cerrar si haces clic fuera
+        document.addEventListener('click', function (e) {
+            if (!menu.contains(e.target) && !toggleBtn.contains(e.target)) {
+                isOpen = false;
+                menu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+            }
+        });
+    });
+</script>
+</body>
+</html>
