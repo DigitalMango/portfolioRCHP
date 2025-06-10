@@ -399,19 +399,31 @@
         </div>
       </div>
       <div class="md:hidden">
-        <button id="menu-toggle" class="text-white focus:outline-none">
+        <button id="mobile-menu-button" class="text-white focus:outline-none">
           <i class="fas fa-bars text-xl"></i>
         </button>
+
       </div>
     </div>
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-95">
+  <div id="mobile-menu" class="hidden md:hidden flex-col space-y-4 mt-4">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
       <a href="#home" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">HOME</a>
       <a href="#about" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">ABOUT</a>
-      <a href="view_all.html" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">PORTFOLIO</a>
+      <div class="px-3 py-2">
+  <button id="mobile-portfolio-toggle" class="w-full text-left text-base font-medium text-white hover:text-accent focus:outline-none">
+    PORTFOLIO <i class="fas fa-chevron-down ml-1 text-xs"></i>
+  </button>
+  <div id="mobile-portfolio-menu" class="hidden mt-2 space-y-2 pl-4">
+    <a href="view_all.html?category=video" class="block text-white hover:text-accent">Videos</a>
+    <a href="view_all.html?category=set" class="block text-white hover:text-accent">Set Photography</a>
+    <a href="view_all.html?category=street" class="block text-white hover:text-accent">Street Photography</a>
+    <a href="view_all.html?category=photoshoot" class="block text-white hover:text-accent">Photoshoots</a>
+  </div>
+</div>
+
       <a href="#services" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">SERVICES</a>
       <a href="#contact" class="block px-3 py-2 text-base font-medium text-white hover:text-accent">CONTACT</a>
     </div>
@@ -1132,10 +1144,6 @@
 </footer>
 </body>
 <script>
-  // Mobile menu toggle
-  document.getElementById('menu-toggle').addEventListener('click', function() {
-    document.getElementById('mobile-menu').classList.toggle('hidden');
-  });
 
   // Smooth scrolling for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1233,91 +1241,108 @@
 </script>
 <!-- Swiper Script -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    // --- Swiper Carousel ---
     const swiper = new Swiper('.services-swiper', {
-  loop: true,
-  centeredSlides: true,
-  initialSlide: 6,
-  spaceBetween: 40,
-  grabCursor: true,
-  speed: 600,
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-  breakpoints: {
-    320: {
-      slidesPerView: 1.2,
-      spaceBetween: 20,
-    },
-    640: {
-      slidesPerView: 1.5,
-      spaceBetween: 30,
-    },
-    768: {
-      slidesPerView: 2,
-      spaceBetween: 30,
-    },
-    1024: {
-      slidesPerView: 2.5,
+      loop: true,
+      centeredSlides: true,
+      initialSlide: 6,
       spaceBetween: 40,
-    },
-  }
-});
+      grabCursor: true,
+      speed: 600,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1.2,
+          spaceBetween: 20,
+        },
+        640: {
+          slidesPerView: 1.5,
+          spaceBetween: 30,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 2.5,
+          spaceBetween: 40,
+        },
+      }
+    });
 
-
-    // Al hacer clic en un slide lateral, moverse al centro
     swiper.on('click', function (e) {
       if (e.clickedSlide && !e.clickedSlide.classList.contains('swiper-slide-active')) {
         swiper.slideTo(swiper.slides.indexOf(e.clickedSlide));
       }
     });
-  });
-</script>
 
-<script>
-  const portfolioBg = document.getElementById('portfolio-bg');
+    // --- Parallax background ---
+    const portfolioBg = document.getElementById('portfolio-bg');
+    if (portfolioBg) {
+      window.addEventListener('scroll', function () {
+        const scrollY = window.scrollY;
+        portfolioBg.style.transform = `translateY(${scrollY * 0.1}px)`;
+      });
+    }
 
-  window.addEventListener('scroll', function () {
-    const scrollY = window.scrollY;
-    portfolioBg.style.transform = `translateY(${scrollY * 0.1}px)`;
-  });
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
+    // --- Desktop dropdown (PORTFOLIO) ---
     const toggleBtn = document.getElementById('portfolio-toggle');
     const menu = document.getElementById('portfolio-menu');
 
-    let isOpen = false;
+    if (toggleBtn && menu) {
+      let isOpen = false;
 
-    toggleBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      isOpen = !isOpen;
-      if (isOpen) {
-        menu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
-        menu.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
-      } else {
-        menu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
-        menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-      }
-    });
+      toggleBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        isOpen = !isOpen;
+        menu.classList.toggle('opacity-0', !isOpen);
+        menu.classList.toggle('scale-95', !isOpen);
+        menu.classList.toggle('pointer-events-none', !isOpen);
+        menu.classList.toggle('opacity-100', isOpen);
+        menu.classList.toggle('scale-100', isOpen);
+        menu.classList.toggle('pointer-events-auto', isOpen);
+      });
 
-    // Cerrar si haces clic fuera
-    document.addEventListener('click', function (e) {
-      if (!menu.contains(e.target) && !toggleBtn.contains(e.target)) {
-        isOpen = false;
-        menu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
-        menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-      }
-    });
+      document.addEventListener('click', function (e) {
+        if (!menu.contains(e.target) && !toggleBtn.contains(e.target)) {
+          isOpen = false;
+          menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+          menu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+        }
+      });
+    }
+
+    // --- Mobile burger menu ---
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // --- Mobile PORTFOLIO submenu ---
+    const mobilePortfolioToggle = document.getElementById('mobile-portfolio-toggle');
+    const mobilePortfolioMenu = document.getElementById('mobile-portfolio-menu');
+
+    if (mobilePortfolioToggle && mobilePortfolioMenu) {
+      mobilePortfolioToggle.addEventListener('click', () => {
+        mobilePortfolioMenu.classList.toggle('hidden');
+      });
+    }
   });
 </script>
-
-
+</body>
 </html>
+
