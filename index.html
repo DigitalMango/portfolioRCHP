@@ -1236,22 +1236,40 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const swiper = new Swiper('.services-swiper', {
-      loop: true,
-      centeredSlides: true,
-      initialSlide: 6,
-      spaceBetween: 40,
+  loop: true,
+  centeredSlides: true,
+  initialSlide: 6,
+  spaceBetween: 40,
+  grabCursor: true,
+  speed: 600,
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  breakpoints: {
+    320: {
+      slidesPerView: 1.2,
+      spaceBetween: 20,
+    },
+    640: {
+      slidesPerView: 1.5,
+      spaceBetween: 30,
+    },
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 30,
+    },
+    1024: {
       slidesPerView: 2.5,
-      grabCursor: true,
-      speed: 600, // animación más fluida
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      }
-    });
+      spaceBetween: 40,
+    },
+  }
+});
+
 
     // Al hacer clic en un slide lateral, moverse al centro
     swiper.on('click', function (e) {
