@@ -431,7 +431,7 @@
 </nav>
 
 <!-- Hero Section with Video Background -->
-<section id="home" class="relative h-screen flex items-center justify-center hero-fallback">
+<section id="home" class="relative h-screen flex items-center justify-center bg-black">
   <!-- Video Background Container -->
   <div class="hero-video-container">
     <video
@@ -470,162 +470,155 @@
 </section>
 
   <!-- About Section -->
-  <section id="about" class="py-20 bg-black">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold title-font text-accent mb-4 animate-fadeIn">ABOUT ME</h2>
-        <div class="w-24 h-1 bg-accent mx-auto mb-6"></div>
-        <p class="text-lg text-gray-300 max-w-3xl mx-auto animate-fadeIn delay-100">Every frame tells a story.
-          I'm a student filmmaker dedicated to turning ideas into immersive visual experiences. </p>
-      </div>
+<section id="about" class="py-20 bg-black">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold title-font text-accent mb-4 animate-fadeIn">ABOUT ME</h2>
+      <div class="w-24 h-1 bg-accent mx-auto mb-6"></div>
+      <p class="text-lg text-gray-300 max-w-3xl mx-auto animate-fadeIn delay-100">Every frame tells a story.
+        I'm a student filmmaker dedicated to turning ideas into immersive visual experiences.
+      </p>
+    </div>
 
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="animate-fadeIn delay-200">
-          <div class="relative overflow-hidden rounded-lg shadow-xl">
-            <img src="portraits.jpg" alt="Profile" class="w-full h-auto">
-            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-            <div class="absolute bottom-0 left-0 p-6">
-              <h3 class="text-2xl font-bold text-white">RODRIGO CHÁVEZ</h3>
-              <p class="text-accent">CINEMATOGRAPHER & FILMMAKER</p>
-            </div>
+    <!-- Perfil + Skills -->
+    <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+      <!-- Imagen de perfil -->
+      <div class="animate-fadeIn delay-200 self-center">
+        <div class="relative overflow-hidden rounded-lg shadow-xl">
+          <img src="portraits.jpg" alt="Profile" class="w-full h-auto">
+          <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+          <div class="absolute bottom-0 left-0 p-6">
+            <h3 class="text-2xl font-bold text-white">RODRIGO CHÁVEZ</h3>
+            <p class="text-accent">CINEMATOGRAPHER & FILMMAKER</p>
           </div>
         </div>
+      </div>
 
-        <div class="animate-fadeIn delay-300">
-          <h3 class="text-2xl font-bold text-white mb-6">Creating Impact Through Visual Narratives</h3>
-          <p class="text-gray-300 mb-6">I'm Rodrigo Chavez, a storyteller at heart.
-            I thrive on crafting compelling content that delivers powerful messages and captivates audiences. Creative, adaptable, and driven, I excel both independently and in teams.
-            With a relentless curiosity and passion for learning, I embrace every challenge with energy and innovation.</p>
+      <!-- Texto + habilidades -->
+      <div class="animate-fadeIn delay-300 self-center">
+        <h3 class="text-2xl font-bold text-white mb-6">Creating Impact Through Visual Narratives</h3>
+        <p class="text-gray-300 mb-6">I'm Rodrigo Chavez, a storyteller at heart.
+          I thrive on crafting compelling content that delivers powerful messages and captivates audiences. Creative, adaptable, and driven, I excel both independently and in teams.
+          With a relentless curiosity and passion for learning, I embrace every challenge with energy and innovation.
+        </p>
 
-          <!-- Skills Section with Logo Images -->
-          <div class="grid grid-cols-1 gap-6 mb-8">
-            <!-- Skill 1 - DAVINCI -->
+<!-- Skills Section (logos grandes, sin porcentajes) -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+  <!-- DaVinci -->
+  <div class="flex items-center space-x-4">
+    <div class="w-14 h-14 bg-gray-900 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
+      <img src="img/logos/davinci-logo.png" alt="DaVinci Resolve Logo" class="w-10 h-10 object-contain">
+    </div>
+    <span class="text-gray-300">DaVinci Resolve</span>
+  </div>
 
-            <div>
-              <div class="flex items-center mb-2">
-                <div class="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
-                  <img src="img/logos/davinci-logo.png" alt="DaVinci Resolve Logo" class="w-6 h-6 object-contain">
-                </div>
-                <div class="ml-4 flex justify-between w-full">
-                  <span class="text-gray-300">DaVinci Resolve</span>
-                  <span class="text-accent">100%</span>
-                </div>
-              </div>
-              <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-yellow-500 to-red-500" style="width: 100%"></div>
-              </div>
-            </div>
+  <!-- Premiere -->
+  <div class="flex items-center space-x-4">
+    <div class="w-14 h-14 bg-gray-900 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
+      <img src="img/logos/premiere-logo.png" alt="Premiere Pro Logo" class="w-10 h-10 object-contain">
+    </div>
+    <span class="text-gray-300">Premiere Pro</span>
+  </div>
 
-            <!-- Skill 2 - Premiere Pro -->
-            <div>
-              <div class="flex items-center mb-2">
-                <div class="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
-                  <img src="img/logos/premiere-logo.png" alt="Premiere Pro Logo" class="w-6 h-6 object-contain">
-                </div>
-                <div class="ml-4 flex justify-between w-full">
-                  <span class="text-gray-300">Premiere Pro</span>
-                  <span class="text-accent">80%</span>
-                </div>
-              </div>
-              <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-yellow-500 to-red-500" style="width: 80%"></div>
-              </div>
-            </div>
+  <!-- Canva -->
+  <div class="flex items-center space-x-4">
+    <div class="w-14 h-14 bg-gray-900 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
+      <img src="img/logos/canva-logo.png" alt="Canva Logo" class="w-10 h-10 object-contain">
+    </div>
+    <span class="text-gray-300">Canva</span>
+  </div>
 
-            <!-- Skill 3 - Canva -->
+  <!-- Excel -->
+  <div class="flex items-center space-x-4">
+    <div class="w-14 h-14 bg-gray-900 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
+      <img src="img/logos/excel-logo.png" alt="Excel Logo" class="w-10 h-10 object-contain">
+    </div>
+    <span class="text-gray-300">Excel (ICDL)</span>
+  </div>
 
-            <div>
-              <div class="flex items-center mb-2">
-                <div class="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
-                  <img src="img/logos/canva-logo.png" alt="Canva Logo" class="w-6 h-6 object-contain">
-                </div>
-                <div class="ml-4 flex justify-between w-full">
-                  <span class="text-gray-300">Canva</span>
-                  <span class="text-accent">100%</span>
-                </div>
-              </div>
-              <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-yellow-500 to-red-500" style="width: 100%"></div>
-              </div>
-            </div>
+  <!-- CapCut -->
+  <div class="flex items-center space-x-4">
+    <div class="w-14 h-14 bg-gray-900 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
+      <img src="img/logos/capcut-logo.png" alt="CapCut Logo" class="w-10 h-10 object-contain">
+    </div>
+    <span class="text-gray-300">CapCut</span>
+  </div>
+
+  <!-- vMix -->
+  <div class="flex items-center space-x-4">
+    <div class="w-14 h-14 bg-gray-900 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
+      <img src="img/logos/vmix-logo.png" alt="vMix Logo" class="w-10 h-10 object-contain">
+    </div>
+    <span class="text-gray-300">vMix</span>
+  </div>
+
+  <!-- Lightroom -->
+  <div class="flex items-center space-x-4">
+    <div class="w-14 h-14 bg-gray-900 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
+      <img src="img/logos/lightroom-logo.png" alt="Lightroom Logo" class="w-10 h-10 object-contain">
+    </div>
+    <span class="text-gray-300">Lightroom</span>
+  </div>
+</div>
 
 
-
-            <!-- Skill 4 - Excel -->
-            <div>
-              <div class="flex items-center mb-2">
-                <div class="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
-                  <img src="img/logos/excel-logo.png" alt="Excel Logo" class="w-6 h-6 object-contain">
-                </div>
-                <div class="ml-4 flex justify-between w-full">
-                  <span class="text-gray-300">Excel (Certification ICDL)</span>
-                  <span class="text-accent">60%</span>
-                </div>
-              </div>
-              <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-yellow-500 to-red-500" style="width: 60%"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex space-x-4">
-            <a href="https://www.instagram.com/rodrigo_chp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-accent hover:text-accent-dark">
-              <i class="fab fa-instagram text-2xl"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/rodrigo-ch%C3%A1vez-406229232?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" class="text-gray-300 hover:text-accent text-2xl">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="https://vimeo.com/user241829550" class="text-gray-300 hover:text-accent text-2xl">
-              <i class="fab fa-vimeo"></i>
-            </a>
-          </div>
+        <div class="flex space-x-4">
+          <a href="https://www.instagram.com/rodrigo_chp" class="text-accent hover:text-accent-dark">
+            <i class="fab fa-instagram text-2xl"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/rodrigo-ch%C3%A1vez-406229232" class="text-gray-300 hover:text-accent text-2xl">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://vimeo.com/user241829550" class="text-gray-300 hover:text-accent text-2xl">
+            <i class="fab fa-vimeo"></i>
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- Timeline Section -->
-    <div class="mt-20 animate-fadeIn delay-400">
+    <!-- Timeline: My Journey -->
+    <div class="animate-fadeIn delay-400">
       <h3 class="text-2xl font-bold text-white mb-8 text-center">MY JOURNEY</h3>
 
       <div class="relative timeline pl-8">
         <div class="mb-12 timeline-item relative pl-8">
           <h4 class="text-xl font-bold text-accent mb-2">Audiovisual Project Manager</h4>
           <p class="text-gray-400 mb-2">Make it Clap | November 2022 - September 2024</p>
-          <p class="text-gray-300">As an Audiovisual Project Manager, I led artistic direction and scriptwriting while overseeing community management initiatives.
-            I designed engaging advertising campaigns for Instagram and TikTok, and played a key role in shaping the project's overall artistic direction (AD).</p>
+          <p class="text-gray-300">As an Audiovisual Project Manager, I led artistic direction and scriptwriting while overseeing community management initiatives. I designed engaging advertising campaigns and led the project's creative direction.</p>
         </div>
 
         <div class="mb-12 timeline-item relative pl-8">
           <h4 class="text-xl font-bold text-accent mb-2">Director</h4>
           <p class="text-gray-400 mb-2">TV Commercial for MAIF: Rompiche | January 2023 - October 2023</p>
-          <p class="text-gray-300">In this role, I handled artistic direction and scriptwriting for the commercial, crafting the creative brief and presenting it to the client.
-            I managed production logistics, supervised on-set teams.</p>
+          <p class="text-gray-300">I handled artistic direction and scriptwriting, presented creative briefs to the client, managed production logistics, and supervised on-set teams.</p>
         </div>
 
         <div class="mb-12 timeline-item relative pl-8">
           <h4 class="text-xl font-bold text-accent mb-2">Video Ad Creation</h4>
           <p class="text-gray-400 mb-2">Carro Seguro SV – Asertiva | June 2020 - July 2020</p>
-          <p class="text-gray-300">I produced and edited promotional videos, collaborating closely with the marketing team to refine key messaging and ensure alignment with brand objectives.</p>
+          <p class="text-gray-300">I produced and edited promotional videos, collaborating with marketing to align the content with brand goals.</p>
         </div>
 
         <div class="timeline-item relative pl-8">
           <h4 class="text-xl font-bold text-accent mb-2">Film Studies - Mastère Scénario et Réalisation</h4>
           <p class="text-gray-400 mb-2">École du son et de l'image (ESIS) - Paris, France | 2022 - 2024</p>
-          <p class="text-gray-300">Advanced training in cinematic storytelling, script development, and visual execution. Honed skills to craft compelling narratives and direct with precision, now applied to commercials, branded content, and audiovisual projects.</p>
+          <p class="text-gray-300">Advanced training in cinematic storytelling and directing, now applied to branded content and audiovisual projects.</p>
         </div>
       </div>
 
-      <!-- CV Download Button - Centered below timeline -->
+      <!-- Botón de descarga del CV -->
       <div class="text-center mt-12">
-        <a href="pdf/CV_Rodrigo_Chavez.pdf"
+        <a href="pdf/CV_Rodrigo_Chavez_V2.pdf"
            target="_blank"
            class="btn-gold text-black font-bold py-3 px-8 rounded-full inline-block hover:bg-yellow-400 transition-colors"
-           download="CV_Rodrigo_Chavez.pdf">
+           download="pdf/CV_Rodrigo_Chavez_V2.pdf">
           <i class="fas fa-file-pdf mr-2"></i> Download Full CV
         </a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
 <!-- Portfolio Section -->
 <section id="portfolio" class="relative z-10 py-20">
   <div class="bg-black bg-opacity-80 py-20">
